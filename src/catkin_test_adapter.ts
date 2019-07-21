@@ -354,12 +354,13 @@ export class CatkinTestAdapter implements TestAdapter {
 
             if(tests.length === 0) {
                 this.output_channel.appendLine(`No test found with id ${id}`);
-                resolve(ids.map((id) => {
+                resolve(ids.map((id):TestEvent => {
                     return {
                         type: 'test',
-                        state: 'errored',
                         test: id,
+                        state: 'errored',
                         message: `No test found with id ${id}`
+
                     };
                 }));
                 return;
@@ -375,14 +376,15 @@ export class CatkinTestAdapter implements TestAdapter {
                 resolve([].concat(...results));
             } catch (err) {
                 this.output_channel.appendLine(`Test suite error ${err}`);
-                resolve(ids.map((id) => {
+                resolve(ids.map((id):TestEvent => {
                     return {
                         type: 'test',
                         state: 'errored',
                         test: id,
                         message: `Failure running test ${id}: ${err}`
                     };
-                }));
+                }
+                ));
             }
         });
     }

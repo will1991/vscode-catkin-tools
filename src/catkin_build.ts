@@ -15,7 +15,8 @@ export async function getCatkinBuildTask(): Promise<vscode.Task[]> {
     return emptyTasks;
   }
 
-  let source_catkin = 'catkin locate > /dev/null && source "$(catkin locate -d)/setup.bash"';
+  // let source_catkin = 'catkin locate > /dev/null && source "$(catkin locate -d)/setup.bash"';
+  let source_catkin = 'catkin locate > /dev/null && source "$(catkin locate -d)/setup.${${SHELL}##*/}"';
   let source_workspace = 'cd "${workspaceFolder}" && ' + source_catkin;
   let source_current_package = 'cd "${fileDirname}" && ' + source_catkin;
 
